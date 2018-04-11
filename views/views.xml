@@ -1,0 +1,119 @@
+<odoo>
+  <data>
+    <!--######################LISTA 1##################-->
+    <record model="ir.ui.view" id="siimsa_production.list">
+      <field name="name">siimsa_production list</field>
+      <field name="model">siimsa_production.proceso</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="num_dib"/>
+          <field name="ope_pro"/>
+		  <field name="fec_cap"/>
+        </tree>
+      </field>
+    </record>
+	<!--######################LISTA 2##################-->
+    <record model="ir.ui.view" id="siimsa_production.list_act">
+      <field name="name">siimsa_production list</field>
+      <field name="model">siimsa_production.actividad</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="num_opr"/>
+          <field name="num_pza"/>
+          <field name="tpo_ser"/>
+		  <field name="tie_pla"/>
+		  <field name="tie_rea"/>
+		  <field name="dato" widget="progressbar"/>
+        </tree>
+      </field>
+    </record>
+	<!--##################FORMULARIO 1##################-->
+    <record model="ir.ui.view" id="siimsa_production.form">
+      <field name="name">siimsa_production form</field>
+      <field name="model">siimsa_production.proceso</field>
+      <field name="arch" type="xml">
+        <form>
+		  <!--header>
+		    <button name="action_draft" 
+					type="object" 
+					string="Regresar a Nuevo" 
+					states="confirmed,done"/>
+		    <button name="action_confirmed" 
+					type="object" 
+					string="Confirmar" 
+					states="draft" 
+					class="oe_highlight"/>
+		    <button name="action_done" 
+					type="object" 
+					string="Marcar como Hecho" 
+					states="confirmed" 
+					class="oe_highlight"/>
+		    <field  name="state" widget="statusbar"/>
+		  </header-->
+		  <sheet>
+		    <div>
+			  <label for="name" class="oe_edit_only"/>
+			  <h1><field name="name" style="width:46%%" placeholder=""/></h1>
+		    </div>
+			<group>
+			  <group>
+			    <field name="num_dib"/>
+				<field name="ope_pro"/>
+			  </group>
+			  <group>
+			    <field name="fec_cap"/>
+				<field name="arc_dir"/>
+			  </group>
+			</group>
+			<notebook>
+			  <page string="HdP">
+				<group>
+				  <field name="lis_act"/>
+				</group>
+			  </page>
+			  <page string="Notas">
+				<group>
+				  <field name="obs_pag"/>
+				</group>
+			  </page>
+			</notebook>
+		  </sheet>
+        </form>
+      </field>
+    </record>
+    <!--######################## VENTANA 1##################-->
+    <record model="ir.actions.act_window" id="siimsa_production.action_window">
+      <field name="name">Hoja de procesos</field>
+      <field name="res_model">siimsa_production.proceso</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="siimsa_production.action_server">
+      <field name="name">siimsa_production server</field>
+      <field name="model_id" ref="model_siimsa_production_siimsa_production"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <menuitem name="Producción" id="siimsa_production.menu_root"/>
+    
+    <!-- menu categories -->
+    <menuitem name="Procesos" id="siimsa_production.menu_1" parent="siimsa_production.menu_root"/>
+
+    <!-- actions -->
+    <menuitem name="Registros" id="siimsa_production.menu_1_list" parent="siimsa_production.menu_1"
+              action="siimsa_production.action_window"/>
+    <!--menuitem name="Server to list" id="siimsa_production" parent="siimsa_production.menu_2"
+              action="siimsa_production.action_server"/-->
+  </data>
+</odoo>
